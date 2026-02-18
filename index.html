@@ -6,111 +6,57 @@
 <title>ANJANEYA Global News</title>
 
 <style>
-body{
-    margin:0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background:#f4f6f9;
-}
-
-header{
-    background:#0d47a1;
-    color:white;
-    padding:25px;
-    text-align:center;
-}
-
-nav{
-    background:#08306b;
-    padding:12px;
-    text-align:center;
-}
-
-nav a{
-    color:white;
-    margin:15px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-nav a:hover{
-    color:yellow;
-}
-
-.container{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
-}
-
-.post{
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:8px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.1);
-}
-
-.post h2{
-    color:#0d47a1;
-}
-
-.date{
-    color:gray;
-    font-size:14px;
-}
-
-footer{
-    background:#0d47a1;
-    color:white;
-    text-align:center;
-    padding:15px;
-    margin-top:30px;
-}
+body{margin:0;font-family:Arial;background:#f4f6f9;}
+header{background:#0d47a1;color:white;padding:20px;text-align:center;}
+.container{max-width:900px;margin:auto;padding:20px;}
+.post{background:white;padding:15px;margin-bottom:15px;border-radius:8px;}
+.admin{background:#ffffff;padding:15px;margin-bottom:20px;border-radius:8px;}
+input,textarea{width:100%;padding:8px;margin:5px 0;}
+button{background:#0d47a1;color:white;padding:8px 15px;border:none;cursor:pointer;}
 </style>
-
 </head>
 
 <body>
 
 <header>
 <h1>ANJANEYA Global News</h1>
-<p>Daily Global Updates | Education | Technology | Jobs</p>
+<p>Daily Global Updates</p>
 </header>
-
-<nav>
-<a href="#">Home</a>
-<a href="#">World News</a>
-<a href="#">Education</a>
-<a href="#">Technology</a>
-<a href="#">Jobs</a>
-</nav>
 
 <div class="container">
 
+<div class="admin">
+<h3>Add New Post</h3>
+<input type="text" id="title" placeholder="Enter News Title">
+<textarea id="content" placeholder="Write your news here"></textarea>
+<button onclick="addPost()">Publish</button>
+</div>
+
+<div id="posts"></div>
+
+</div>
+
+<script>
+function addPost(){
+let title=document.getElementById("title").value;
+let content=document.getElementById("content").value;
+let date=new Date().toLocaleDateString();
+
+let post=`
 <div class="post">
-<h2>Welcome to ANJANEYA Global News</h2>
-<p class="date">Published: 18 February 2026</p>
-<p>
-This website provides daily global news, education updates,
-technology trends, and job notifications.
-Stay connected for trusted and fast updates.
-</p>
+<h2>${title}</h2>
+<p><b>Published:</b> ${date}</p>
+<p>${content}</p>
 </div>
+`;
 
-<div class="post">
-<h2>Today's Headline Update</h2>
-<p class="date">Published: 18 February 2026</p>
-<p>
-You can edit this section daily and publish new updates
-by editing your index.html file on GitHub.
-</p>
-</div>
+document.getElementById("posts").innerHTML =
+post + document.getElementById("posts").innerHTML;
 
-</div>
-
-<footer>
-© 2026 ANJANEYA Global News | All Rights Reserved
-</footer>
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+}
+</script>
 
 </body>
 </html>
