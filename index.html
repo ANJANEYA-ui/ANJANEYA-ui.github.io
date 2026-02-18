@@ -3,31 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anjaneya Tech News - Example Mockup</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>Anjaneya Tech News</title>
 <style>
-  body { font-family: 'Roboto', sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333; }
-  header { background:#000; color:#fff; padding:15px; display:flex; justify-content: space-between; align-items: center; }
-  header h1 { margin:0; font-size:24px; }
-  header nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:500; }
-  .container { max-width:1200px; margin:20px auto; display:flex; gap:20px; }
-  .main { flex:3; }
-  .sidebar { flex:1; }
-  .featured { position:relative; margin-bottom:30px; }
-  .featured img { width:100%; height:300px; object-fit:cover; border-radius:8px; }
-  .featured-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.6); color:#fff; padding:15px; border-radius:5px; }
-  .section { margin-bottom:30px; }
-  .section h2 { margin-bottom:15px; }
-  .cards { display:flex; gap:15px; flex-wrap:wrap; }
-  .card { background:#fff; flex:1; min-width:200px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); overflow:hidden; transition: transform 0.2s; }
-  .card:hover { transform: translateY(-3px); }
-  .card img { width:100%; height:120px; object-fit:cover; }
-  .card h3 { margin:10px; font-size:16px; }
-  .sidebar h3 { margin-top:0; margin-bottom:10px; }
-  .sidebar ul { list-style:none; padding:0; }
-  .sidebar li { background:#fff; padding:8px; margin-bottom:8px; border-radius:5px; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
-  footer { background:#000; color:#fff; text-align:center; padding:15px; margin-top:20px; }
-  @media(max-width:900px) { .container { flex-direction:column; } .cards { flex-direction:column; } }
+  /* Fonts & General */
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#e6f2ff; color:#333; }
+  
+  /* Header */
+  header { background:#004080; color:#fff; padding:15px; text-align:center; position: sticky; top:0; z-index: 100; }
+  header h1 { margin:0; font-size:26px; color:#fff; }
+  nav a { color:#fff; margin:0 12px; text-decoration:none; font-weight:bold; transition:0.3s; }
+  nav a:hover { color:#ffcc00; }
+
+  /* Search Bar */
+  .search-bar { margin-top:10px; }
+  .search-bar input { width:80%; padding:8px; border-radius:20px; border:none; outline:none; }
+
+  /* Sections */
+  .section { max-width:1200px; margin:30px auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+  .section h2 { margin-top:0; border-bottom:3px solid #004080; padding-bottom:8px; color:#004080; }
+  
+  /* Cards */
+  .cards { display:flex; gap:20px; flex-wrap:wrap; margin-top:15px; }
+  .card { background:#f0f8ff; flex:1; min-width:220px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.1); overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; }
+  .card:hover { transform: translateY(-5px); box-shadow:0 6px 15px rgba(0,0,0,0.2); }
+  .card img { width:100%; height:150px; object-fit:cover; }
+  .card h3 { margin:10px; font-size:16px; color:#004080; }
+
+  /* Contact Form */
+  .contact { max-width:600px; margin:30px auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+  .contact h2 { margin-top:0; border-bottom:3px solid #004080; padding-bottom:8px; color:#004080; }
+  .contact input, .contact textarea { width:100%; padding:12px; margin-bottom:12px; border-radius:8px; border:1px solid #004080; }
+  .contact button { padding:12px 25px; border:none; background:#ff3333; color:#fff; border-radius:8px; cursor:pointer; font-weight:bold; transition:0.3s; }
+  .contact button:hover { background:#ff6600; }
+
+  /* Footer */
+  footer { text-align:center; padding:15px; background:#004080; color:#fff; margin-top:20px; font-weight:bold; }
+
+  /* Popup */
+  #popup { display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background:#004080; color:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.3); z-index:200; }
+  #popup button { margin-top:10px; padding:8px 15px; border:none; border-radius:5px; cursor:pointer; background:#ffcc00; color:#004080; font-weight:bold; transition:0.3s; }
+  #popup button:hover { background:#ffff66; }
+
+  /* Responsive */
+  @media(max-width:900px) { .cards { flex-direction:column; } .search-bar input { width:100%; } }
 </style>
 </head>
 <body>
@@ -35,113 +53,87 @@
 <header>
   <h1>Anjaneya Tech News</h1>
   <nav>
-    <a href="#">Home</a>
-    <a href="#">Technology</a>
-    <a href="#">World</a>
-    <a href="#">Education</a>
+    <a href="#education">Education</a>
+    <a href="#technology">Technology</a>
+    <a href="#world">World</a>
+    <a href="#contact">Contact</a>
   </nav>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search posts..." onkeyup="searchPosts()">
+  </div>
 </header>
 
-<div class="container">
+<!-- Popup -->
+<div id="popup">
+  <p>🔔 Welcome! Check out our latest posts!</p>
+  <button onclick="closePopup()">Close</button>
+</div>
 
-  <!-- Main Content -->
-  <div class="main">
-
-    <!-- Featured Post -->
-    <div class="featured">
-      <img src="https://via.placeholder.com/1200x300.png?text=Top+AI+Tools+2026" alt="Featured Post">
-      <div class="featured-text">
-        <h2>Top 5 AI Tools Transforming Technology in 2026</h2>
-        <p>AI is reshaping the world faster than ever. Learn which tools you need to know this year...</p>
-      </div>
-    </div>
-
-    <!-- Technology Section -->
-    <div class="section">
-      <h2>Technology</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Tech+1" alt="Tech 1">
-          <h3>AI Coding Assistants</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Tech+2" alt="Tech 2">
-          <h3>AI Image Generators</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Tech+3" alt="Tech 3">
-          <h3>Predictive Analytics Tools</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- World Section -->
-    <div class="section">
-      <h2>World</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=World+1" alt="World 1">
-          <h3>Global Tech Conferences</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=World+2" alt="World 2">
-          <h3>International AI Research</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=World+3" alt="World 3">
-          <h3>Startup Innovations</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- Education Section -->
-    <div class="section">
-      <h2>Education</h2>
-      <div class="cards">
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Edu+1" alt="Edu 1">
-          <h3>Online Coding Classes</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Edu+2" alt="Edu 2">
-          <h3>AI Learning Platforms</h3>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/200x120.png?text=Edu+3" alt="Edu 3">
-          <h3>Future Tech Courses</h3>
-        </div>
-      </div>
-    </div>
-
+<!-- Education Section -->
+<div class="section" id="education">
+  <h2>Education</h2>
+  <div class="cards">
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=Coding+Classes" alt=""><h3>Online Coding Classes</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=AI+Learning" alt=""><h3>AI Learning Platforms</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=Tech+Courses" alt=""><h3>Future Tech Courses</h3></div>
   </div>
+</div>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Popular Posts</h3>
-    <ul>
-      <li>Top AI Tools 2026</li>
-      <li>Best Coding Platforms</li>
-      <li>Global Tech News</li>
-    </ul>
-    <h3>Categories</h3>
-    <ul>
-      <li>Technology</li>
-      <li>World</li>
-      <li>Education</li>
-    </ul>
-    <h3>Latest Posts</h3>
-    <ul>
-      <li>AI Image Generators</li>
-      <li>Startup Innovations</li>
-      <li>Online Learning Platforms</li>
-    </ul>
+<!-- Technology Section -->
+<div class="section" id="technology">
+  <h2>Technology</h2>
+  <div class="cards">
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=AI+Tools" alt=""><h3>AI Coding Assistants</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=AI+Images" alt=""><h3>AI Image Generators</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=Analytics" alt=""><h3>Predictive Analytics Tools</h3></div>
   </div>
+</div>
 
+<!-- World Section -->
+<div class="section" id="world">
+  <h2>World</h2>
+  <div class="cards">
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=Tech+Conferences" alt=""><h3>Global Tech Conferences</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=AI+Research" alt=""><h3>International AI Research</h3></div>
+    <div class="card"><img src="https://via.placeholder.com/300x150.png?text=Startups" alt=""><h3>Startup Innovations</h3></div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="contact" id="contact">
+  <h2>Contact Us</h2>
+  <form action="https://formspree.io/f/yourformid" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="_replyto" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
 </div>
 
 <footer>
   &copy; 2026 Anjaneya Tech News
 </footer>
+
+<script>
+  // Popup
+  window.onload = function() {
+    document.getElementById('popup').style.display = 'block';
+  };
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  // Search Function
+  function searchPosts() {
+    var input = document.getElementById("searchInput").value.toLowerCase();
+    var cards = document.querySelectorAll(".cards .card");
+    cards.forEach(function(card){
+      var text = card.querySelector("h3").textContent.toLowerCase();
+      if(text.includes(input)) card.style.display = "";
+      else card.style.display = "none";
+    });
+  }
+</script>
 
 </body>
 </html>
