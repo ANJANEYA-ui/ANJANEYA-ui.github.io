@@ -1,61 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ANJANEYA Global News</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobalNews Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-<style>
-body{margin:0;font-family:Arial;background:#f4f6f9;}
-header{background:#0d47a1;color:white;padding:20px;text-align:center;}
-.container{max-width:900px;margin:auto;padding:20px;}
-.post{background:white;padding:15px;margin-bottom:15px;border-radius:8px;}
-.admin{background:#ffffff;padding:15px;margin-bottom:20px;border-radius:8px;}
-input,textarea{width:100%;padding:8px;margin:5px 0;}
-button{background:#0d47a1;color:white;padding:8px 15px;border:none;cursor:pointer;}
-</style>
+    body {
+      background: #f4f6f9;
+      color: #222;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #0a58ca, #0dcaf0);
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c') center/cover no-repeat;
+      height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 36px;
+    }
+
+    /* Main Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* News Cards */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Adsense */
+    .ads {
+      background: #e9ecef;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a58ca;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
 <header>
-<h1>ANJANEYA Global News</h1>
-<p>Daily Global Updates</p>
+  <div class="logo">GlobalNews Pro</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">World</a>
+    <a href="#">India</a>
+    <a href="#">Technology</a>
+    <a href="#">Education</a>
+    <a href="#">Contact</a>
+  </nav>
 </header>
+
+<section class="hero">
+  <h1>Latest Global News & Daily Updates</h1>
+</section>
 
 <div class="container">
 
-<div class="admin">
-<h3>Add New Post</h3>
-<input type="text" id="title" placeholder="Enter News Title">
-<textarea id="content" placeholder="Write your news here"></textarea>
-<button onclick="addPost()">Publish</button>
+  <main>
+    <h2 style="margin-bottom:15px;">Latest News</h2>
+    <div class="news-grid" id="newsContainer">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
+        <div class="card-content">
+          <h3>Technology is changing the world</h3>
+          <p>Latest updates about AI, software, and global tech industry.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df">
+        <div class="card-content">
+          <h3>Education system updates</h3>
+          <p>Important news for students from class 6 to 12 and beyond.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d">
+        <div class="card-content">
+          <h3>Global economy trends</h3>
+          <p>Learn about business, jobs, and international economy.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <aside class="sidebar">
+    <h2>Trending</h2>
+    <ul>
+      <li>AI breaking news</li>
+      <li>India education update</li>
+      <li>Government job alert</li>
+      <li>Technology trends</li>
+    </ul>
+
+    <div class="ads">
+      Google AdSense Ad Space
+    </div>
+
+  </aside>
+
 </div>
 
-<div id="posts"></div>
-
-</div>
+<footer>
+  © 2026 GlobalNews Pro | Professional News Portal
+</footer>
 
 <script>
-function addPost(){
-let title=document.getElementById("title").value;
-let content=document.getElementById("content").value;
-let date=new Date().toLocaleDateString();
-
-let post=`
-<div class="post">
-<h2>${title}</h2>
-<p><b>Published:</b> ${date}</p>
-<p>${content}</p>
-</div>
-`;
-
-document.getElementById("posts").innerHTML =
-post + document.getElementById("posts").innerHTML;
-
-document.getElementById("title").value="";
-document.getElementById("content").value="";
-}
+  // Future: Connect API or Blogger posts here
+  console.log("Professional News Portal Loaded");
 </script>
 
 </body>
