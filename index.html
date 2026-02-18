@@ -6,23 +6,22 @@
 <title>ANJANEYA Global News</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#f4f4f4;
 }
 
 header{
 background:#c80000;
 color:white;
-padding:20px;
+padding:25px;
 text-align:center;
 }
 
 nav{
 background:#111;
-padding:10px;
+padding:12px;
 text-align:center;
 }
 
@@ -38,40 +37,59 @@ color:yellow;
 }
 
 .container{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
 padding:20px;
 }
 
-.news{
-background:white;
-padding:15px;
-margin-bottom:20px;
-border-radius:5px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+gap:20px;
 }
 
-.news img{
+.card{
+background:white;
+border-radius:8px;
+overflow:hidden;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.03);
+}
+
+.card img{
 width:100%;
-border-radius:5px;
+height:200px;
+object-fit:cover;
+}
+
+.card-content{
+padding:15px;
+}
+
+.card-content h2{
+font-size:18px;
+margin:0 0 10px 0;
 }
 
 footer{
 background:#111;
 color:white;
 text-align:center;
-padding:15px;
+padding:20px;
+margin-top:30px;
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
 <h1>ANJANEYA Global News</h1>
-<p>Latest Global News, Technology, Education & Jobs</p>
+<p>Breaking News | World | Technology | Education | Jobs</p>
 </header>
 
 <nav>
@@ -82,12 +100,10 @@ padding:15px;
 <a href="#">Jobs</a>
 </nav>
 
-<div class="container" id="posts">
-
-<div class="news">
-<h2>Loading latest news...</h2>
+<div class="container">
+<div class="grid" id="posts">
+Loading latest news...
 </div>
-
 </div>
 
 <footer>
@@ -95,15 +111,11 @@ padding:15px;
 </footer>
 
 <script>
-
 fetch("https://anjaneyaglobalnews.blogspot.com/feeds/posts/default?alt=json")
-
 .then(response => response.json())
-
 .then(data => {
 
 let posts = data.feed.entry;
-
 let html = "";
 
 posts.reverse().forEach(post => {
@@ -111,10 +123,20 @@ posts.reverse().forEach(post => {
 let title = post.title.$t;
 let content = post.content.$t;
 
+let img = "";
+if(post.media$thumbnail){
+img = post.media$thumbnail.url.replace("s72-c","s800");
+}else{
+img = "https://picsum.photos/800/400";
+}
+
 html += `
-<div class="news">
+<div class="card">
+<img src="${img}">
+<div class="card-content">
 <h2>${title}</h2>
-${content}
+${content.substring(0,200)}...
+</div>
 </div>
 `;
 
@@ -123,7 +145,6 @@ ${content}
 document.getElementById("posts").innerHTML = html;
 
 });
-
 </script>
 
 </body>
