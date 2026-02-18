@@ -1,178 +1,147 @@
----
-layout: default
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anjaneya Tech News</title>
-  <style>
-    /* General Styles */
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333; }
-    header { background:#000; color:#fff; padding:15px; }
-    header h1 a { color:#fff; text-decoration:none; }
-    nav a { color:#fff; margin-right:15px; text-decoration:none; }
-    .search-bar { margin-top:10px; }
-    .search-bar input { width:100%; padding:8px; border-radius:5px; border:none; }
-
-    /* Slider */
-    .featured-slider { margin:20px; position:relative; }
-    .slider-container { display:flex; overflow:hidden; }
-    .slide { min-width:100%; transition:transform 0.5s ease-in-out; position:relative; }
-    .slide img { width:100%; height:250px; object-fit:cover; border-radius:5px; }
-    .slide-text { position:absolute; bottom:15px; left:20px; background:rgba(0,0,0,0.6); color:#fff; padding:10px; border-radius:5px; }
-    .prev, .next { cursor:pointer; position:absolute; top:50%; padding:10px; color:#fff; font-weight:bold; background:rgba(0,0,0,0.5); border:none; border-radius:50%; transform:translateY(-50%); }
-    .prev { left:10px; } .next { right:10px; }
-
-    /* Content Area */
-    .content-area { display:flex; margin:20px; gap:20px; }
-    .main-sections { flex:3; }
-    .main-sections .section { margin-bottom:30px; }
-    .main-sections ul { list-style:none; padding:0; }
-    .main-sections li { background:#fff; padding:10px; margin-bottom:8px; border-radius:5px; }
-
-    /* Sidebar */
-    .sidebar { flex:1; }
-    .sidebar h3 { margin-top:0; }
-    .sidebar ul { list-style:none; padding:0; }
-    .sidebar li { background:#fff; padding:8px; margin-bottom:8px; border-radius:5px; }
-
-    /* Footer */
-    footer { background:#000; color:#fff; text-align:center; padding:15px; }
-
-    /* Responsive */
-    @media(max-width:900px) { .content-area { flex-direction:column; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anjaneya Tech News - Example Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Roboto', sans-serif; margin:0; padding:0; background:#f4f4f4; color:#333; }
+  header { background:#000; color:#fff; padding:15px; display:flex; justify-content: space-between; align-items: center; }
+  header h1 { margin:0; font-size:24px; }
+  header nav a { color:#fff; margin-left:15px; text-decoration:none; font-weight:500; }
+  .container { max-width:1200px; margin:20px auto; display:flex; gap:20px; }
+  .main { flex:3; }
+  .sidebar { flex:1; }
+  .featured { position:relative; margin-bottom:30px; }
+  .featured img { width:100%; height:300px; object-fit:cover; border-radius:8px; }
+  .featured-text { position:absolute; bottom:20px; left:20px; background:rgba(0,0,0,0.6); color:#fff; padding:15px; border-radius:5px; }
+  .section { margin-bottom:30px; }
+  .section h2 { margin-bottom:15px; }
+  .cards { display:flex; gap:15px; flex-wrap:wrap; }
+  .card { background:#fff; flex:1; min-width:200px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); overflow:hidden; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-3px); }
+  .card img { width:100%; height:120px; object-fit:cover; }
+  .card h3 { margin:10px; font-size:16px; }
+  .sidebar h3 { margin-top:0; margin-bottom:10px; }
+  .sidebar ul { list-style:none; padding:0; }
+  .sidebar li { background:#fff; padding:8px; margin-bottom:8px; border-radius:5px; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+  footer { background:#000; color:#fff; text-align:center; padding:15px; margin-top:20px; }
+  @media(max-width:900px) { .container { flex-direction:column; } .cards { flex-direction:column; } }
+</style>
 </head>
 <body>
 
 <header>
-  <h1><a href="{{ site.baseurl }}">Anjaneya Tech News</a></h1>
+  <h1>Anjaneya Tech News</h1>
   <nav>
-    <a href="{{ site.baseurl }}/">Home</a>
-    <a href="#technology">Technology</a>
-    <a href="#world">World</a>
-    <a href="#education">Education</a>
+    <a href="#">Home</a>
+    <a href="#">Technology</a>
+    <a href="#">World</a>
+    <a href="#">Education</a>
   </nav>
-  <div class="search-bar">
-    <input type="text" placeholder="Search posts..." id="searchInput" onkeyup="searchPosts()">
-  </div>
 </header>
 
-<main>
+<div class="container">
 
-  <!-- Top Slider -->
-  <section class="featured-slider">
-    <h2>Breaking News</h2>
-    <div class="slider-container">
-      {% for post in site.posts limit:5 %}
-      <div class="slide">
-        <a href="{{ post.url }}">
-          {% if post.image %}
-          <img src="{{ post.image }}" alt="{{ post.title }}">
-          {% endif %}
-          <div class="slide-text">
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.excerpt | strip_html | truncatewords:25 }}</p>
-          </div>
-        </a>
+  <!-- Main Content -->
+  <div class="main">
+
+    <!-- Featured Post -->
+    <div class="featured">
+      <img src="https://via.placeholder.com/1200x300.png?text=Top+AI+Tools+2026" alt="Featured Post">
+      <div class="featured-text">
+        <h2>Top 5 AI Tools Transforming Technology in 2026</h2>
+        <p>AI is reshaping the world faster than ever. Learn which tools you need to know this year...</p>
       </div>
-      {% endfor %}
-    </div>
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
-  </section>
-
-  <div class="content-area">
-
-    <!-- Main Sections -->
-    <div class="main-sections">
-      <section id="technology" class="section">
-        <h2>Technology</h2>
-        <ul>
-          {% for post in site.categories.technology %}
-          <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </section>
-
-      <section id="world" class="section">
-        <h2>World</h2>
-        <ul>
-          {% for post in site.categories.world %}
-          <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </section>
-
-      <section id="education" class="section">
-        <h2>Education</h2>
-        <ul>
-          {% for post in site.categories.education %}
-          <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </section>
     </div>
 
-    <!-- Sidebar Widgets -->
-    <aside class="sidebar">
-      <h3>Popular Posts</h3>
-      <ul>
-        {% for post in site.posts limit:5 %}
-        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-      </ul>
+    <!-- Technology Section -->
+    <div class="section">
+      <h2>Technology</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Tech+1" alt="Tech 1">
+          <h3>AI Coding Assistants</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Tech+2" alt="Tech 2">
+          <h3>AI Image Generators</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Tech+3" alt="Tech 3">
+          <h3>Predictive Analytics Tools</h3>
+        </div>
+      </div>
+    </div>
 
-      <h3>Categories</h3>
-      <ul>
-        {% for category in site.categories %}
-        <li><a href="#{{ category[0] }}">{{ category[0] | capitalize }}</a></li>
-        {% endfor %}
-      </ul>
+    <!-- World Section -->
+    <div class="section">
+      <h2>World</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=World+1" alt="World 1">
+          <h3>Global Tech Conferences</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=World+2" alt="World 2">
+          <h3>International AI Research</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=World+3" alt="World 3">
+          <h3>Startup Innovations</h3>
+        </div>
+      </div>
+    </div>
 
-      <h3>Latest Posts</h3>
-      <ul>
-        {% for post in site.posts limit:5 %}
-        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </aside>
+    <!-- Education Section -->
+    <div class="section">
+      <h2>Education</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Edu+1" alt="Edu 1">
+          <h3>Online Coding Classes</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Edu+2" alt="Edu 2">
+          <h3>AI Learning Platforms</h3>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/200x120.png?text=Edu+3" alt="Edu 3">
+          <h3>Future Tech Courses</h3>
+        </div>
+      </div>
+    </div>
 
   </div>
-</main>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Popular Posts</h3>
+    <ul>
+      <li>Top AI Tools 2026</li>
+      <li>Best Coding Platforms</li>
+      <li>Global Tech News</li>
+    </ul>
+    <h3>Categories</h3>
+    <ul>
+      <li>Technology</li>
+      <li>World</li>
+      <li>Education</li>
+    </ul>
+    <h3>Latest Posts</h3>
+    <ul>
+      <li>AI Image Generators</li>
+      <li>Startup Innovations</li>
+      <li>Online Learning Platforms</li>
+    </ul>
+  </div>
+
+</div>
 
 <footer>
-  <p>&copy; 2026 Anjaneya Tech News. All Rights Reserved.</p>
+  &copy; 2026 Anjaneya Tech News
 </footer>
-
-<script>
-/* Search Function */
-function searchPosts() {
-  var input = document.getElementById("searchInput");
-  var filter = input.value.toLowerCase();
-  var sections = document.querySelectorAll(".main-sections ul li");
-  sections.forEach(function(li){
-    if(li.textContent.toLowerCase().includes(filter)) li.style.display = "";
-    else li.style.display = "none";
-  });
-}
-
-/* Slider */
-let currentSlide=0;
-function showSlide(n){
-  const slides=document.querySelectorAll('.slider-container .slide');
-  if(n>=slides.length) currentSlide=0;
-  else if(n<0) currentSlide=slides.length-1;
-  else currentSlide=n;
-  slides.forEach((slide)=>{ slide.style.transform=`translateX(-${currentSlide*100}%)`; });
-}
-function moveSlide(step){ showSlide(currentSlide+step); }
-setInterval(()=>{ moveSlide(1); },5000);
-showSlide(currentSlide);
-</script>
 
 </body>
 </html>
